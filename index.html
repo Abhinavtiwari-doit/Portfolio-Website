@@ -113,41 +113,99 @@ section{padding:110px 56px;position:relative;z-index:1;}
 .svc-btn{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--c1,var(--accent));letter-spacing:.04em;text-decoration:none;border:1px solid currentColor;padding:8px 16px;border-radius:6px;transition:background .2s;position:relative;z-index:1;}
 .svc-btn:hover{background:rgba(255,255,255,.05);}
 
-/* EXPERIENCE */
-.exp-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:36px;display:grid;grid-template-columns:220px 1fr;gap:48px;margin-bottom:12px;transition:border-color .2s,box-shadow .2s;position:relative;overflow:hidden;}
-.exp-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:3px 0 0 3px;opacity:0;transition:opacity .2s;}
-.exp-item:hover{border-color:rgba(0,245,212,.2);box-shadow:0 8px 40px rgba(0,0,0,.3);}
-.exp-item:hover::before{opacity:1;}
-.exp-period{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.08em;margin-bottom:8px;}
-.exp-company{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:6px;}
-.exp-badge{display:inline-flex;font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 10px;border:1px solid var(--border);border-radius:4px;color:var(--muted);}
-.exp-role{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:14px;letter-spacing:-.5px;}
-.exp-points{list-style:none;}
-.exp-points li{font-size:14px;color:var(--muted);padding:6px 0;padding-left:20px;position:relative;}
-.exp-points li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:12px;}
-.exp-points li strong{color:var(--text);font-weight:400;}
+/* ── MARQUEE ── */
+.mq-wrap{overflow:hidden;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1;background:var(--bg2);}
+.mq-track{display:flex;width:max-content;animation:mq 28s linear infinite;}
+.mq-track:hover{animation-play-state:paused;}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.mq-item{display:inline-flex;align-items:center;padding:0 2.5rem;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;white-space:nowrap;gap:1rem;transition:color .3s;}
+.mq-item:hover{color:var(--accent);}
+.mq-sep{color:var(--accent2);font-size:8px;}
 
-/* PROJECTS */
-.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-.project-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:36px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s;text-decoration:none;color:inherit;display:block;}
-.project-card:hover{transform:translateY(-5px);border-color:rgba(0,245,212,.2);}
-.project-top-bar{height:3px;background:linear-gradient(90deg,var(--c1),var(--c2));border-radius:3px;margin-bottom:24px;transform:scaleX(.3);transform-origin:left;transition:transform .3s;}
-.project-card:hover .project-top-bar{transform:scaleX(1);}
-.project-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;margin-bottom:12px;}
-.project-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:10px;letter-spacing:-.5px;}
-.project-desc{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:20px;}
-.project-stack{display:flex;flex-wrap:wrap;gap:6px;}
-.stack-tag{font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 12px;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);border-radius:100px;color:#a78bfa;}
-.project-arrow{position:absolute;top:32px;right:32px;font-size:18px;color:var(--muted);transition:color .2s,transform .2s;}
-.project-card:hover .project-arrow{color:var(--accent);transform:translate(3px,-3px);}
+/* ── SKILLS (TABBED) ── */
+.skills-layout{display:grid;grid-template-columns:240px 1fr;gap:48px;margin-top:40px;align-items:start;}
+.skills-nav{position:sticky;top:100px;display:flex;flex-direction:column;gap:4px;}
+.sk-tab{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;color:var(--muted);cursor:pointer;transition:all .3s;border:1px solid transparent;}
+.sk-tab:hover,.sk-tab.active{background:var(--card);border-color:var(--border);color:var(--text);}
+.sk-tab.active{border-color:rgba(0,245,212,.4);color:var(--accent);}
+.sk-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--accent);}
+.sk-tab:nth-child(2) .sk-dot{background:var(--accent2);}
+.sk-tab:nth-child(3) .sk-dot{background:var(--accent3);}
+.sk-tab:nth-child(4) .sk-dot{background:var(--accent2);}
+.sk-tab:nth-child(5) .sk-dot{background:var(--accent);}
+.sk-tab:nth-child(6) .sk-dot{background:var(--pink);}
+.skills-content{}
+.sk-panel{display:none;}
+.sk-panel.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px;animation:skFade .4s ease;}
+@keyframes skFade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.sk-pill{padding:14px 16px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--muted);text-align:center;transition:all .35s;position:relative;overflow:hidden;cursor:default;}
+.sk-pill::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(0,245,212,.12),transparent 60%);opacity:0;transition:opacity .3s;}
+.sk-pill:hover{border-color:rgba(0,245,212,.5);color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.4),0 0 0 1px rgba(0,245,212,.1);}
+.sk-pill:hover::before{opacity:1;}
+[data-panel="cloud"] .sk-pill:hover{border-color:rgba(245,158,11,.5);color:var(--accent3);}
+[data-panel="cloud"] .sk-pill::before{background:radial-gradient(circle at 50% 0%,rgba(245,158,11,.12),transparent 60%);}
+[data-panel="ml"] .sk-pill:hover{border-color:rgba(139,92,246,.5);color:var(--accent2);}
+[data-panel="ml"] .sk-pill::before{background:radial-gradient(circle at 50% 0%,rgba(139,92,246,.12),transparent 60%);}
+[data-panel="auto"] .sk-pill:hover{border-color:rgba(16,185,129,.5);color:#34d399;}
+[data-panel="auto"] .sk-pill::before{background:radial-gradient(circle at 50% 0%,rgba(16,185,129,.12),transparent 60%);}
+[data-panel="sec"] .sk-pill:hover{border-color:rgba(236,72,153,.5);color:var(--pink);}
+[data-panel="sec"] .sk-pill::before{background:radial-gradient(circle at 50% 0%,rgba(236,72,153,.12),transparent 60%);}
 
-/* CERTS */
-.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.cert-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;transition:border-color .2s,transform .2s;}
-.cert-card:hover{border-color:rgba(0,245,212,.25);transform:translateY(-3px);}
-.cert-issuer{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-.cert-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:12px;}
-.cert-badge{font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 12px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:100px;color:var(--accent3);width:fit-content;}
+/* ── EXPERIENCE (TIMELINE) ── */
+.exp-grid{margin-top:40px;display:flex;flex-direction:column;gap:0;}
+.exp-item2{display:grid;grid-template-columns:180px 1px 1fr;gap:0 40px;padding:40px 0;border-bottom:1px solid var(--border);cursor:default;}
+.exp-item2:first-child{border-top:1px solid var(--border);}
+.exp-item2:hover .exp-body2{transform:translateX(8px);}
+.exp-left2{padding-right:16px;display:flex;flex-direction:column;justify-content:flex-start;padding-top:4px;}
+.exp-date2{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;line-height:1.5;}
+.exp-line2{width:1px;background:var(--border);position:relative;flex-shrink:0;}
+.exp-line2::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);transition:background .3s,box-shadow .3s;}
+.exp-item2:hover .exp-line2::before{background:#34d399;box-shadow:0 0 16px #34d399;}
+.exp-body2{padding-left:16px;transition:transform .4s cubic-bezier(0.16,1,0.3,1);}
+.exp-co2{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:6px;}
+.exp-role2{font-family:'Syne',sans-serif;font-size:clamp(20px,2.5vw,28px);font-weight:800;line-height:1;margin-bottom:16px;letter-spacing:-.5px;}
+.exp-desc2{display:flex;flex-direction:column;gap:8px;}
+.exp-desc2 span{font-size:14px;color:var(--muted);line-height:1.65;display:flex;gap:10px;align-items:flex-start;}
+.exp-desc2 span::before{content:'→';color:var(--accent);flex-shrink:0;margin-top:2px;font-size:12px;}
+.exp-desc2 span strong{color:var(--text);font-weight:400;}
+.exp-tag2{display:inline-flex;margin-top:12px;background:rgba(0,245,212,.06);border:1px solid rgba(0,245,212,.15);border-radius:6px;padding:3px 10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--accent);}
+
+/* ── PROJECTS (PORTFOLIO 2 CARDS) ── */
+.proj-grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:0;}
+.proj-card2{border-radius:20px;border:1px solid var(--border);background:var(--card);padding:36px;transition:all .45s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;}
+.proj-card2::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(0.16,1,0.3,1);}
+.proj-card2:hover{border-color:rgba(0,245,212,.2);transform:translateY(-8px);box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);}
+.proj-card2:hover::after{transform:scaleX(1);}
+.proj-header2{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;}
+.proj-num2{font-family:'Syne',sans-serif;font-size:56px;color:rgba(255,255,255,.05);line-height:1;letter-spacing:-2px;}
+.proj-icon2{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(0,245,212,.15),rgba(139,92,246,.1));border:1px solid rgba(0,245,212,.15);display:flex;align-items:center;justify-content:center;font-size:19px;}
+.proj-name2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.1;margin-bottom:10px;}
+.proj-desc2{font-size:14px;color:var(--muted);line-height:1.75;flex:1;font-weight:300;}
+.proj-footer2{margin-top:24px;display:flex;align-items:center;justify-content:space-between;}
+.proj-tags2{display:flex;flex-wrap:wrap;gap:6px;}
+.ptag2{padding:3px 9px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.07em;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);}
+.proj-link2{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;display:flex;align-items:center;gap:4px;transition:gap .3s;}
+.proj-link2:hover{gap:8px;}
+
+/* ── CERTIFICATIONS BENTO ── */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:auto;gap:14px;margin-top:0;}
+.bento-card{border-radius:18px;border:1px solid var(--border);background:var(--card);padding:28px;transition:all .4s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden;}
+.bento-card:hover{border-color:rgba(0,245,212,.2);transform:scale(1.02);box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.bento-card.b-wide{grid-column:span 2;}
+.bento-issuer{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;}
+.bento-name{font-family:'Syne',sans-serif;font-size:15px;color:var(--text);font-weight:600;line-height:1.4;}
+.bento-glow{position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;opacity:.12;filter:blur(20px);pointer-events:none;}
+.bento-badge{position:absolute;bottom:20px;right:20px;font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:.05em;opacity:.08;}
+
+/* ── EDUCATION ── */
+.edu-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:0;}
+.edu-c{border-radius:18px;border:1px solid var(--border);background:var(--card);padding:32px;transition:all .4s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden;}
+.edu-c::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent2),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .5s;}
+.edu-c:hover{transform:translateY(-5px);border-color:rgba(0,245,212,.15);}
+.edu-c:hover::before{transform:scaleX(1);}
+.edu-deg{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;letter-spacing:-.3px;line-height:1.25;margin-bottom:8px;}
+.edu-inst{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--accent2);text-transform:uppercase;}
+.edu-yr{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:6px;}
 
 /* BOOKING SECTION */
 .booking-section{background:var(--bg2);}
@@ -213,8 +271,15 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
   section{padding:70px 20px;}
   .stats-band{grid-template-columns:repeat(2,1fr);padding:40px 20px;}
   .stat-item{padding:20px;border-right:none;border-bottom:1px solid var(--border);}
-  .services-grid,.certs-grid,.projects-grid{grid-template-columns:1fr;}
-  .exp-item{grid-template-columns:1fr;gap:16px;}
+  .services-grid{grid-template-columns:1fr;}
+  .skills-layout{grid-template-columns:1fr;}
+  .skills-nav{flex-direction:row;flex-wrap:wrap;position:static;}
+  .exp-item2{grid-template-columns:1fr;gap:12px;}
+  .exp-line2{display:none;}
+  .proj-grid2{grid-template-columns:1fr;}
+  .bento{grid-template-columns:repeat(2,1fr);}
+  .bento-card.b-wide{grid-column:auto;}
+  .edu-row{grid-template-columns:1fr;}
   .booking-inner{grid-template-columns:1fr;}
   .contact-wrapper{padding:48px 24px;}
   .form-row{grid-template-columns:1fr;}
@@ -233,6 +298,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
   <a href="#" class="nav-logo">AT<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
     <li><a href="#services">services</a></li>
     <li><a href="#experience">experience</a></li>
     <li><a href="#projects">projects</a></li>
@@ -254,7 +320,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
     <div class="hero-badge"><span class="badge-dot"></span> Open to opportunities — Remote &amp; Freelance</div>
     <h1 class="hero-name">
       Abhinav<br>
-      <span class="gradient-text">Tiwari</span>
+      <span class="gradient-text">Tiwari.</span>
     </h1>
     <p class="hero-desc">
       <strong>Automation & Data Engineer</strong> who turns complex workflows into clean, intelligent systems — using Python, AWS, ML, and no-code platforms to automate the boring stuff and amplify what matters.
@@ -281,9 +347,9 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
       </div>
       <div class="skill-row">
         <span class="s-pill a">Python</span>
-        <span class="s-pill a">AWS/Cloud</span>
-        <span class="s-pill b">N8N</span>
-        <span class="s-pill b">Zoho Applications</span>
+        <span class="s-pill a">AWS</span>
+        <span class="s-pill b">Pabbly</span>
+        <span class="s-pill b">Zoho</span>
         <span class="s-pill">ML/AI</span>
         <span class="s-pill">SQL</span>
         <span class="s-pill a">Automation</span>
@@ -300,6 +366,88 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
   <div class="stat-item"><div class="stat-num">35%</div><div class="stat-label">Avg. operational cost reduction</div></div>
 </div>
 
+<!-- MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span class="mq-item">WhatsApp Business API <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Machine Learning <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Zoho Deluge <span class="mq-sep">◆</span></span>
+    <span class="mq-item">N8N Automation <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Power BI <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Scikit-learn <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Docker <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Shopify Dev <span class="mq-sep">◆</span></span>
+    <span class="mq-item">REST APIs <span class="mq-sep">◆</span></span>
+    <span class="mq-item">SQL <span class="mq-sep">◆</span></span>
+    <span class="mq-item">AWS Solutions Architect <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Pabbly Connect <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Hugging Face <span class="mq-sep">◆</span></span>
+    <span class="mq-item">CRM Automation <span class="mq-sep">◆</span></span>
+    <span class="mq-item">WhatsApp Business API <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Machine Learning <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Zoho Deluge <span class="mq-sep">◆</span></span>
+    <span class="mq-item">N8N Automation <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Power BI <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Scikit-learn <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Docker <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Shopify Dev <span class="mq-sep">◆</span></span>
+    <span class="mq-item">REST APIs <span class="mq-sep">◆</span></span>
+    <span class="mq-item">SQL <span class="mq-sep">◆</span></span>
+    <span class="mq-item">AWS Solutions Architect <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Pabbly Connect <span class="mq-sep">◆</span></span>
+    <span class="mq-item">Hugging Face <span class="mq-sep">◆</span></span>
+    <span class="mq-item">CRM Automation <span class="mq-sep">◆</span></span>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-tag">technical expertise</div>
+  <h2 class="section-title reveal">Skill <em>Stack.</em></h2>
+  <p style="color:var(--muted);font-size:15px;line-height:1.8;max-width:500px;margin-bottom:0;" class="reveal">From backend automations to ML pipelines — a versatile tech stack built over 5+ years.</p>
+  <div class="skills-layout">
+    <div class="skills-nav reveal">
+      <div class="sk-tab active" data-tab="code"><div class="sk-dot"></div>Languages</div>
+      <div class="sk-tab" data-tab="data"><div class="sk-dot"></div>Data & BI</div>
+      <div class="sk-tab" data-tab="cloud"><div class="sk-dot"></div>Cloud</div>
+      <div class="sk-tab" data-tab="ml"><div class="sk-dot"></div>ML & AI</div>
+      <div class="sk-tab" data-tab="auto"><div class="sk-dot"></div>Automation</div>
+      <div class="sk-tab" data-tab="sec"><div class="sk-dot"></div>Security</div>
+    </div>
+    <div class="skills-content reveal">
+      <div class="sk-panel active" id="panel-code" data-panel="code">
+        <div class="sk-pill">Python</div><div class="sk-pill">SQL</div><div class="sk-pill">C</div>
+        <div class="sk-pill">JavaScript</div><div class="sk-pill">HTML / CSS</div><div class="sk-pill">Zoho Deluge</div>
+        <div class="sk-pill">Bash</div><div class="sk-pill">VBA / Macros</div>
+      </div>
+      <div class="sk-panel" id="panel-data" data-panel="data">
+        <div class="sk-pill">Power BI</div><div class="sk-pill">Excel Advanced</div><div class="sk-pill">Pandas</div>
+        <div class="sk-pill">NumPy</div><div class="sk-pill">Matplotlib</div><div class="sk-pill">Seaborn</div>
+        <div class="sk-pill">Pivot Tables</div><div class="sk-pill">EDA</div>
+      </div>
+      <div class="sk-panel" id="panel-cloud" data-panel="cloud">
+        <div class="sk-pill">AWS EC2</div><div class="sk-pill">AWS S3</div><div class="sk-pill">AWS Lambda</div>
+        <div class="sk-pill">AWS IAM</div><div class="sk-pill">Google Cloud</div><div class="sk-pill">Docker</div>
+        <div class="sk-pill">Linux / SSH</div>
+      </div>
+      <div class="sk-panel" id="panel-ml" data-panel="ml">
+        <div class="sk-pill">Scikit-learn</div><div class="sk-pill">TensorFlow</div><div class="sk-pill">PyTorch</div>
+        <div class="sk-pill">Hugging Face</div><div class="sk-pill">Random Forest</div><div class="sk-pill">Feature Eng.</div>
+        <div class="sk-pill">NLP</div><div class="sk-pill">Model Tuning</div>
+      </div>
+      <div class="sk-panel" id="panel-auto" data-panel="auto">
+        <div class="sk-pill">Pabbly Connect</div><div class="sk-pill">N8N</div><div class="sk-pill">Zapier</div>
+        <div class="sk-pill">REST APIs</div><div class="sk-pill">WhatsApp API</div><div class="sk-pill">Zoho One</div>
+        <div class="sk-pill">GoHighLevel</div><div class="sk-pill">Webhooks</div>
+      </div>
+      <div class="sk-panel" id="panel-sec" data-panel="sec">
+        <div class="sk-pill">YARA Rules</div><div class="sk-pill">Malware Analysis</div><div class="sk-pill">Static Analysis</div>
+        <div class="sk-pill">Dynamic Analysis</div><div class="sk-pill">Reverse Eng.</div><div class="sk-pill">Threat Modeling</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SERVICES -->
 <section id="services" class="services-section">
   <div class="section-tag">what I offer</div>
@@ -309,14 +457,14 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
     <div class="svc-card reveal" style="--c1:#00f5d4;--c2:#06b6d4;">
       <div class="svc-icon">⚡</div>
       <div class="svc-name">Business Automation</div>
-      <div class="svc-desc">End-to-end workflow automation using Pabbly Connect, Zoho, Zapier, N8N, and custom Python scripts — eliminating repetitive tasks and connecting your tools.</div>
+      <div class="svc-desc">End-to-end workflow automation using Pabbly Connect, Zoho, Zapier, and custom Python scripts — eliminating repetitive tasks and connecting your tools.</div>
       <ul class="svc-features">
         <li>CRM automation &amp; lead management</li>
         <li>WhatsApp &amp; email trigger workflows</li>
         <li>API integrations &amp; webhooks</li>
         <li>Payment gateway automation</li>
       </ul>
-      <div class="svc-price">Starting at ₹800 / Hour</div>
+      <div class="svc-price">Starting at ₹8,000 / project</div>
       <br><a href="#book" class="svc-btn">Book consultation →</a>
     </div>
 
@@ -325,12 +473,12 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
       <div class="svc-name">ML & Data Science</div>
       <div class="svc-desc">Custom machine learning models, data pipelines, and predictive analytics dashboards — from raw data to production-ready insights.</div>
       <ul class="svc-features">
-        <li>Predictive ML models (92–98% accuracy)</li>
+        <li>Predictive ML models (88–92% accuracy)</li>
         <li>Data cleaning &amp; EDA</li>
         <li>Power BI / Excel dashboards</li>
         <li>Fraud detection &amp; classification</li>
       </ul>
-      <div class="svc-price" style="color:#a78bfa;">Starting at ₹2,500 / hour</div>
+      <div class="svc-price" style="color:#a78bfa;">Starting at ₹12,000 / project</div>
       <br><a href="#book" class="svc-btn" style="color:#a78bfa;border-color:#a78bfa;">Book consultation →</a>
     </div>
 
@@ -344,7 +492,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
         <li>IAM roles &amp; security policies</li>
         <li>Google Cloud integration</li>
       </ul>
-      <div class="svc-price" style="color:var(--accent3);">Starting at ₹1,200 / hour</div>
+      <div class="svc-price" style="color:var(--accent3);">Starting at ₹10,000 / project</div>
       <br><a href="#book" class="svc-btn" style="color:var(--accent3);border-color:var(--accent3);">Book consultation →</a>
     </div>
 
@@ -358,7 +506,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
         <li>SEO &amp; Google Ads optimisation</li>
         <li>Automated reporting &amp; analytics</li>
       </ul>
-      <div class="svc-price" style="color:#22d3ee;">Starting at ₹800 / hour</div>
+      <div class="svc-price" style="color:#22d3ee;">Starting at ₹6,000 / project</div>
       <br><a href="#book" class="svc-btn" style="color:#22d3ee;border-color:#22d3ee;">Book consultation →</a>
     </div>
 
@@ -386,7 +534,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
         <li>Team onboarding &amp; training</li>
         <li>KPI dashboards &amp; reports</li>
       </ul>
-      <div class="svc-price" style="color:#34d399;">Starting at ₹1,000 / hour</div>
+      <div class="svc-price" style="color:#34d399;">Starting at ₹9,000 / project</div>
       <br><a href="#book" class="svc-btn" style="color:#34d399;border-color:#34d399;">Book consultation →</a>
     </div>
 
@@ -395,140 +543,141 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
 
 <!-- EXPERIENCE -->
 <section id="experience">
-  <div class="section-tag">work experience</div>
-  <h2 class="section-title reveal">Where I've<br><em>made impact.</em></h2>
+  <div class="section-tag">career</div>
+  <h2 class="section-title reveal">Work <em>History.</em></h2>
+  <div class="exp-grid">
 
-  <div class="exp-item reveal">
-    <div>
-      <div class="exp-period">Dec 2025 — Present</div>
-      <div class="exp-company">The Healing Wiz</div>
-      <span class="exp-badge">Remote</span>
+    <div class="exp-item2 reveal">
+      <div class="exp-left2"><div class="exp-date2">Dec 2025<br>→ Present</div></div>
+      <div class="exp-line2"></div>
+      <div class="exp-body2">
+        <div class="exp-co2">The Healing Wiz · Remote</div>
+        <div class="exp-role2">Tech Ops & Automation Manager</div>
+        <div class="exp-desc2">
+          <span>Managed CRM, WhatsApp API &amp; payment gateways — reduced operational issues by <strong>35%</strong></span>
+          <span>Built Pabbly Connect automations improving workflow efficiency by <strong>40%</strong></span>
+          <span>Custom Python &amp; Zoho Deluge scripting for complex backend business logic</span>
+          <span>WordPress site management with seamless CRM &amp; marketing integrations</span>
+        </div>
+        <div class="exp-tag2">Current Role</div>
+      </div>
     </div>
-    <div>
-      <div class="exp-role">Tech Operations & Automation Manager</div>
-      <ul class="exp-points">
-        <li>Managed CRM, WhatsApp API, and payment gateway integrations — <strong>reducing operational issues by 35%</strong></li>
-        <li>Built automations using Pabbly Connect and no-code tools — <strong>improving workflow efficiency by 40%</strong></li>
-        <li>Developed custom workflows using Zoho Deluge and Python scripting for backend processes</li>
-        <li>Maintained dashboards and reports for monitoring system performance and business metrics</li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="exp-item reveal">
-    <div>
-      <div class="exp-period">Jul 2024 — Dec 2025</div>
-      <div class="exp-company">Eternity Capital Corp</div>
-      <span class="exp-badge">Remote</span>
+    <div class="exp-item2 reveal">
+      <div class="exp-left2"><div class="exp-date2">Jul 2024<br>→ Dec 2025</div></div>
+      <div class="exp-line2"></div>
+      <div class="exp-body2">
+        <div class="exp-co2">Eternity Capital Corp · Canada</div>
+        <div class="exp-role2">Shopify Developer</div>
+        <div class="exp-desc2">
+          <span>Grew international sales by <strong>18%</strong> via Wayfair, Walmart &amp; MakerPlace</span>
+          <span>Google Cloud × Shopify integration for product data syncing</span>
+          <span>Automated reporting pipelines — reduced manual effort by <strong>30%</strong></span>
+          <span>SEO restructuring &amp; Google Ads — boosted product visibility by <strong>25%</strong></span>
+        </div>
+      </div>
     </div>
-    <div>
-      <div class="exp-role">Shopify Developer</div>
-      <ul class="exp-points">
-        <li><strong>Increased international sales by 18%</strong> through Wayfair, Walmart & MakerPlace operations</li>
-        <li>Integrated Google Cloud services with Shopify for improved product data syncing</li>
-        <li>Automated Excel and Google Sheets reports — <strong>reducing manual effort by 30%+</strong></li>
-        <li>Optimised SEO and Google Ads — <strong>increasing product visibility by 25%</strong></li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="exp-item reveal">
-    <div>
-      <div class="exp-period">Feb 2024 — June 2024</div>
-      <div class="exp-company">Superprof</div>
-      <span class="exp-badge">Contracted</span>
+    <div class="exp-item2 reveal">
+      <div class="exp-left2"><div class="exp-date2">Aug 2024<br>→ Sep 2024</div></div>
+      <div class="exp-line2"></div>
+      <div class="exp-body2">
+        <div class="exp-co2">CodSoft · Remote</div>
+        <div class="exp-role2">Data Science Intern</div>
+        <div class="exp-desc2">
+          <span>3 ML models achieving <strong>88–92% accuracy</strong> with scikit-learn</span>
+          <span>Processed 20K+ records — EDA, feature engineering, hyperparameter tuning</span>
+          <span>Improved model recall by <strong>15%</strong> through targeted optimisation</span>
+        </div>
+      </div>
     </div>
-    <div>
-      <div class="exp-role">Malware Analyst</div>
-      <ul class="exp-points">
-        <li>Analyzed <strong>16+ malware samples</strong>strong> using static & dynamic techniques</li>
-        <li>Used <strong>Ghidra, x64dbg, DIE, PEiD & API Miner</strong>strong> for reverse engineering</li>
-        <li>Created <strong>YARA rules</strong>strong> to improve malware detection accuracy</li>
-        <li>Automated analysis tasks using <strong>Python & Bash scripting</strong>strong></li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="exp-item reveal">
-    <div>
-      <div class="exp-period">Aug 2024 — Sep 2024</div>
-      <div class="exp-company">CodSoft</div>
-      <span class="exp-badge">Internship</span>
+    <div class="exp-item2 reveal">
+      <div class="exp-left2"><div class="exp-date2">Feb 2024<br>→ Apr 2024</div></div>
+      <div class="exp-line2"></div>
+      <div class="exp-body2">
+        <div class="exp-co2">Superprof · Remote</div>
+        <div class="exp-role2">Malware Analyst Tutor</div>
+        <div class="exp-desc2">
+          <span>Mentored <strong>16+ students</strong> in static &amp; dynamic malware analysis</span>
+          <span>Custom YARA rules — detection precision improved by <strong>35%</strong></span>
+          <span>Structured reverse engineering &amp; threat modelling curricula</span>
+        </div>
+      </div>
     </div>
-    <div>
-      <div class="exp-role">Data Science Intern</div>
-      <ul class="exp-points">
-        <li>Built <strong>3 ML models achieving 88–96% accuracy</strong> using Python and scikit-learn</li>
-        <li>Processed and analysed <strong>20,000+ records</strong> using Pandas, Seaborn, and Matplotlib</li>
-        <li><strong>Improved model recall by 15%</strong> through feature engineering and hyperparameter tuning</li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="exp-item reveal">
-    <div>
-      <div class="exp-period">May 2022 — May 2023</div>
-      <div class="exp-company">FabLearner</div>
-      <span class="exp-badge">Remote</span>
+    <div class="exp-item2 reveal">
+      <div class="exp-left2"><div class="exp-date2">May 2022<br>→ May 2023</div></div>
+      <div class="exp-line2"></div>
+      <div class="exp-body2">
+        <div class="exp-co2">FabLearner · Remote</div>
+        <div class="exp-role2">Zoho Developer & Tech Assistant</div>
+        <div class="exp-desc2">
+          <span>Led 5-person team on Zoho One — issue resolution time cut by <strong>30%</strong></span>
+          <span>10+ webinars &amp; walkthroughs — engagement up <strong>25%</strong></span>
+          <span>Automation dashboards reducing repetitive tasks by <strong>35%</strong></span>
+        </div>
+      </div>
     </div>
-    <div>
-      <div class="exp-role">Zoho Developer & Tech Assistant</div>
-      <ul class="exp-points">
-        <li>Led a 5-member team using Zoho One to automate CRM — <strong>reducing issue resolution by 30%</strong></li>
-        <li>Delivered 10+ webinars and product walkthroughs — <strong>increasing engagement by 25%</strong></li>
-        <li><strong>Reduced repetitive tasks by 35%</strong> through dashboard and automation workflow builds</li>
-      </ul>
-    </div>
+
   </div>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects" style="background:var(--bg2);">
-  <div class="section-tag">selected projects</div>
-  <h2 class="section-title reveal">Things I've<br><em>built & shipped.</em></h2>
-  <div class="projects-grid">
+  <div class="section-tag">portfolio</div>
+  <h2 class="section-title reveal">Selected <em>Projects.</em></h2>
+  <div class="proj-grid2">
 
-    <a href="https://github.com/Abhinavtiwari-doit/Smart_Health_Diagnosis_App" class="project-card reveal" style="--c1:#00f5d4;--c2:#06b6d4;">
-      <div class="project-top-bar"></div>
-      <span class="project-arrow">↗</span>
-      <div class="project-num">01 / AI HEALTH PLATFORM</div>
-      <div class="project-name">DiagnoseMe.AI</div>
-      <div class="project-desc">AI-powered disease prediction app using Random Forest models deployed via Flask REST APIs, with real-time symptom analysis and a seamless UI.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Python</span><span class="stack-tag">Flask</span><span class="stack-tag">scikit-learn</span><span class="stack-tag">REST API</span>
+    <a href="#" class="proj-card2 reveal">
+      <div class="proj-header2">
+        <div class="proj-num2">01</div>
+        <div class="proj-icon2">🩺</div>
+      </div>
+      <div class="proj-name2">DiagnoseMe.AI</div>
+      <div class="proj-desc2">AI-powered disease prediction platform built with Random Forest models and a Flask REST API backend. Real-time symptom analysis with a clean, patient-first interface deployed as a full-stack web app.</div>
+      <div class="proj-footer2">
+        <div class="proj-tags2"><span class="ptag2">Python</span><span class="ptag2">Flask</span><span class="ptag2">scikit-learn</span><span class="ptag2">Pandas</span></div>
+        <span class="proj-link2">View →</span>
       </div>
     </a>
 
-    <a href="https://github.com/Abhinavtiwari-doit/Roast_my_code" class="project-card reveal" style="--c1:#8b5cf6;--c2:#ec4899;">
-      <div class="project-top-bar"></div>
-      <span class="project-arrow">↗</span>
-      <div class="project-num">02 / MULTIMODAL AI APP</div>
-      <div class="project-name">RoastMyCode</div>
-      <div class="project-desc">Humorous AI-powered code review using Hugging Face language models with Gradio UI, syntax highlighting, and real-time feedback. Live on HF Spaces.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Python</span><span class="stack-tag">Gradio</span><span class="stack-tag">Hugging Face</span><span class="stack-tag">Transformers</span>
+    <a href="#" class="proj-card2 reveal">
+      <div class="proj-header2">
+        <div class="proj-num2">02</div>
+        <div class="proj-icon2">🔥</div>
+      </div>
+      <div class="proj-name2">RoastMyCode</div>
+      <div class="proj-desc2">Multimodal AI code review tool with a humorous twist. Hugging Face LLM integration with Gradio UI, syntax highlighting, and real-time roast generation. Live on Hugging Face Spaces.</div>
+      <div class="proj-footer2">
+        <div class="proj-tags2"><span class="ptag2">Python</span><span class="ptag2">Gradio</span><span class="ptag2">Hugging Face</span><span class="ptag2">Transformers</span></div>
+        <span class="proj-link2">View →</span>
       </div>
     </a>
 
-    <a href="https://github.com/Abhinavtiwari-doit/Machine-learning-models/blob/main/Credit_card_fraud_detection.ipynb" class="project-card reveal" style="--c1:#f59e0b;--c2:#f97316;">
-      <div class="project-top-bar"></div>
-      <span class="project-arrow">↗</span>
-      <div class="project-num">03 / ML CLASSIFICATION</div>
-      <div class="project-name">Credit Card Fraud Detection</div>
-      <div class="project-desc">Fraud detection on financial datasets using supervised learning — full EDA, feature engineering, logistic regression and tree-based classifiers.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Python</span><span class="stack-tag">scikit-learn</span><span class="stack-tag">Seaborn</span><span class="stack-tag">NumPy</span>
+    <a href="#" class="proj-card2 reveal">
+      <div class="proj-header2">
+        <div class="proj-num2">03</div>
+        <div class="proj-icon2">💳</div>
+      </div>
+      <div class="proj-name2">Fraud Detection ML</div>
+      <div class="proj-desc2">Credit card fraud detection using supervised ML on financial transaction datasets. Comprehensive EDA, feature engineering, and logistic regression + tree-based ensemble models evaluated for precision-recall balance.</div>
+      <div class="proj-footer2">
+        <div class="proj-tags2"><span class="ptag2">Python</span><span class="ptag2">scikit-learn</span><span class="ptag2">Seaborn</span><span class="ptag2">EDA</span></div>
+        <span class="proj-link2">GitHub →</span>
       </div>
     </a>
 
-    <a href="https://github.com/Abhinavtiwari-doit/Excel-Projects/tree/main/Sales%20analysis%20Dashboard" class="project-card reveal" style="--c1:#10b981;--c2:#3b82f6;">
-      <div class="project-top-bar"></div>
-      <span class="project-arrow">↗</span>
-      <div class="project-num">04 / BUSINESS INTELLIGENCE</div>
-      <div class="project-name">Interactive Sales Dashboard</div>
-      <div class="project-desc">Advanced Excel dashboard transforming raw sales data into actionable KPIs — COUNTIFS, SUMIFS, dynamic Pivot Tables, Slicers, and VBA macros.</div>
-      <div class="project-stack">
-        <span class="stack-tag">Excel</span><span class="stack-tag">VBA</span><span class="stack-tag">Pivot Tables</span><span class="stack-tag">Macros</span>
+    <a href="#" class="proj-card2 reveal">
+      <div class="proj-header2">
+        <div class="proj-num2">04</div>
+        <div class="proj-icon2">📊</div>
+      </div>
+      <div class="proj-name2">Sales Analytics Dashboard</div>
+      <div class="proj-desc2">Enterprise-grade Excel dashboard converting raw sales records into live KPIs. Fully interactive with Slicers, Timelines, dynamic Pivot Tables, SUMIFS/COUNTIFS formulas, and VBA macro automation.</div>
+      <div class="proj-footer2">
+        <div class="proj-tags2"><span class="ptag2">Excel</span><span class="ptag2">VBA</span><span class="ptag2">Pivot Tables</span><span class="ptag2">Macros</span></div>
+        <span class="proj-link2">GitHub →</span>
       </div>
     </a>
 
@@ -537,15 +686,72 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
 
 <!-- CERTIFICATIONS -->
 <section>
-  <div class="section-tag">certifications</div>
-  <h2 class="section-title reveal">Verified<br><em>credentials.</em></h2>
-  <div class="certs-grid">
-    <div class="cert-card reveal"><div class="cert-issuer">Amazon Web Services</div><div class="cert-name">AWS Solutions Architect Knowledge Badge</div><div class="cert-badge">Score: 92%</div></div>
-    <div class="cert-card reveal"><div class="cert-issuer">Databricks</div><div class="cert-name">Data Engineering & SQL Analytics</div><div class="cert-badge">Verified</div></div>
-    <div class="cert-card reveal"><div class="cert-issuer">IBM</div><div class="cert-name">Data Science Tools</div><div class="cert-badge">Verified</div></div>
-    <div class="cert-card reveal"><div class="cert-issuer">EC-Council</div><div class="cert-name">Agile Project Management Practitioner</div><div class="cert-badge">Verified</div></div>
-    <div class="cert-card reveal"><div class="cert-issuer">DeepLearning.AI</div><div class="cert-name">Prompt Engineering for Developers</div><div class="cert-badge">Verified</div></div>
-    <div class="cert-card reveal"><div class="cert-issuer">Salesforce Trailhead</div><div class="cert-name">Journey2Salesforce — 43 Badges</div><div class="cert-badge">9,100+ Points</div></div>
+  <div class="section-tag">credentials</div>
+  <h2 class="section-title reveal">Certifi<em>cations.</em></h2>
+  <div class="bento">
+    <div class="bento-card b-wide reveal" style="background:linear-gradient(135deg,rgba(245,158,11,.06),rgba(0,0,0,0));">
+      <div class="bento-glow" style="background:#f59e0b;"></div>
+      <div class="bento-issuer" style="color:#f59e0b;">AWS · Amazon Web Services</div>
+      <div class="bento-name">Solutions Architect Knowledge Badge</div>
+      <div class="bento-badge" style="color:#f59e0b;opacity:.12;">92%</div>
+    </div>
+    <div class="bento-card reveal" style="background:linear-gradient(135deg,rgba(244,63,94,.05),rgba(0,0,0,0));">
+      <div class="bento-glow" style="background:#f43f5e;"></div>
+      <div class="bento-issuer" style="color:#f43f5e;">Databricks</div>
+      <div class="bento-name">Data Engineering & SQL Analytics</div>
+    </div>
+    <div class="bento-card reveal" style="background:linear-gradient(135deg,rgba(16,185,129,.05),rgba(0,0,0,0));">
+      <div class="bento-glow" style="background:#10b981;"></div>
+      <div class="bento-issuer" style="color:#10b981;">DeepLearning.AI</div>
+      <div class="bento-name">Prompt Engineering for Developers</div>
+    </div>
+    <div class="bento-card reveal" style="background:linear-gradient(135deg,rgba(0,245,212,.05),rgba(0,0,0,0));">
+      <div class="bento-glow" style="background:#00f5d4;"></div>
+      <div class="bento-issuer" style="color:#00f5d4;">IBM</div>
+      <div class="bento-name">Data Science Tools</div>
+    </div>
+    <div class="bento-card reveal" style="background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(0,0,0,0));">
+      <div class="bento-glow" style="background:#8b5cf6;"></div>
+      <div class="bento-issuer" style="color:#a78bfa;">EC-Council</div>
+      <div class="bento-name">Agile Project Management Practitioner</div>
+    </div>
+    <div class="bento-card b-wide reveal" style="background:linear-gradient(135deg,rgba(0,161,255,.06),rgba(139,92,246,.04));">
+      <div class="bento-glow" style="background:#009eff;"></div>
+      <div class="bento-issuer" style="color:#009eff;">Salesforce Trailhead</div>
+      <div class="bento-name">Journey2Salesforce — 43 Badges · 9,100+ Points</div>
+      <div class="bento-badge" style="color:#009eff;opacity:.12;">SF</div>
+    </div>
+    <div class="bento-card reveal">
+      <div class="bento-issuer" style="color:var(--accent3);">Databricks</div>
+      <div class="bento-name">Big Data 101</div>
+    </div>
+    <div class="bento-card reveal">
+      <div class="bento-issuer" style="color:#34d399;">AI Academy</div>
+      <div class="bento-name">AI Agent Fundamentals</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section style="background:var(--bg2);">
+  <div class="section-tag">background</div>
+  <h2 class="section-title reveal">Edu<em>cation.</em></h2>
+  <div class="edu-row">
+    <div class="edu-c reveal">
+      <div class="edu-deg">Bachelor of Computer Applications</div>
+      <div class="edu-inst">Kurukshetra University</div>
+      <div class="edu-yr">2021 – 2024 · Computer Science</div>
+    </div>
+    <div class="edu-c reveal">
+      <div class="edu-deg">Journey2Salesforce Program</div>
+      <div class="edu-inst">Trailhead by Salesforce</div>
+      <div class="edu-yr">Jun – Aug 2023 · IT Administration & Management</div>
+    </div>
+    <div class="edu-c reveal">
+      <div class="edu-deg">Advanced Diploma — Computer Application</div>
+      <div class="edu-inst">Newway Computer Academy</div>
+      <div class="edu-yr">2014 – 2016 · Computer Science</div>
+    </div>
   </div>
 </section>
 
@@ -597,12 +803,12 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
             <select id="bSession">
               <option value="">Select a session...</option>
               <option>Discovery Call (Free)</option>
-              <option>Tech Mentorship</option>
-              <option>Automation Audit</option>
+              <option>Tech Mentorship (₹1,500)</option>
+              <option>Automation Audit (₹3,000)</option>
               <option>Business Automation Consultation</option>
               <option>ML / Data Science Project</option>
               <option>Shopify / E-Commerce Setup</option>
-              <option>Zoho Consulting</option>
+              <option>Zoho CRM Consulting</option>
               <option>Cloud / AWS Setup</option>
               <option>Project Kickoff (Custom)</option>
             </select>
@@ -613,9 +819,9 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
           <div class="form-group"><label>PREFERRED TIME (IST)</label>
             <select id="bTime">
               <option value="">Select time...</option>
-              <option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option>
+              <option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option>
               <option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option>
-              <option>5:00 PM</option><option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option>
+              <option>5:00 PM</option><option>7:00 PM</option><option>8:00 PM</option>
             </select>
           </div>
         </div>
@@ -623,7 +829,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
         <button class="submit-btn" onclick="submitBooking()">Confirm Booking ✦</button>
       </div>
       <div class="form-success" id="formSuccess">
-        Booking received! I'll confirm your slot at <strong id="confirmEmail"></strong> within 24 hours. Looking forward to connecting!
+        ✅ Booking received! I'll confirm your slot at <strong id="confirmEmail"></strong> within 24 hours. Looking forward to connecting!
       </div>
     </div>
   </div>
@@ -640,7 +846,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM8 19H5V8h3v11zM6.5 6.73c-.97 0-1.75-.79-1.75-1.76S5.53 3.21 6.5 3.21s1.75.79 1.75 1.76-.78 1.76-1.75 1.76zM20 19h-3v-5.6c0-3.37-4-3.12-4 0V19h-3V8h3v1.77C14.39 7.5 20 7.34 20 12.1V19z"/></svg>
         LinkedIn
       </a>
-      <a href="https://github.com/Abhinavtiwari-doit" target="_blank" class="contact-link">
+      <a href="https://github.com/abhinavtiwari" target="_blank" class="contact-link">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.005 2.05.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         GitHub
       </a>
@@ -678,6 +884,17 @@ const obs = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 reveals.forEach(el => obs.observe(el));
+
+// Skills Tabs
+document.querySelectorAll('.sk-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.sk-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.sk-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = document.getElementById('panel-' + tab.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+});
 
 // Resume download
 function downloadResume(e) {
@@ -759,7 +976,7 @@ function downloadResume(e) {
 </ul>
 <hr>
 <h3>Education</h3>
-<p><b>BCA — Computer Science</b> | Panipat, Haryana, India</p>
+<p><b>B.Tech — Computer Science</b> | Panipat, Haryana, India</p>
 <p style="margin-top:12px;font-size:12px;color:#aaa;">Generated from abhinavtiwari.dev</p>
 </body></html>`;
   const blob = new Blob([resumeHTML], { type: 'text/html' });
